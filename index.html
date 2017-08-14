@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>360全景图</title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <!-- 启用webAPP全屏模式-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 隐藏状态栏或者设置状态栏的颜色-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- 禁止缓存访问页面-->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="applicable-device" content="mobile">
+    <!-- 页面关键词-->
+    <link rel="stylesheet" href="css/demo01.css">
+    <script src="js/three.min.js"></script>
+    <script src="js/photo-sphere-viewer.min.js"></script>
+    <!---->
+    <script src="js/demo01.js"></script>
+    <!--[if IE]>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="main">
+    <h3 id="title">旋转查看效果</h3>
+    <div id="container"></div>
+
+    <div class="tool-right">
+        <ul>
+            <li class="edit-file"><img class='second-level-img' src="images/icon/smFile.png" data-name='file' data-src=url("images/cur/file.ico"),pointer alt=""></li>
+            <li class="edit-image"><img class='second-level-img' src="images/icon/smPicture.png" data-name='image' data-src=url("images/cur/img.ico"),pointer alt=""></li>
+            <li class="edit-sign">
+                <div class="second-level hide">
+                    <img class='second-level-img' src="images/icon/smCircle.png" data-src=url("images/cur/circle.ico"),pointer alt="">
+                    <img class='second-level-img' src="images/icon/smTriangle.png" data-src=url("images/cur/triangle.ico"),pointer alt="">
+                    <img class='second-level-img' src="images/icon/smSquare.png" data-src=url("images/cur/square.ico"),pointer alt="">
+                </div>
+                <img src="images/icon/smSign.png" alt="">
+            </li>
+            <li class="edit-text"><img class='second-level-img' src="images/icon/smText.png" data-name='text' data-src=url("images/cur/text.ico"),pointer alt=""></li>
+            <li class="edit-skip"><img class='second-level-img' src="images/icon/smSkip.png" data-name='skip' data-src=url("images/cur/skip.ico"),pointer alt=""></li>
+            <li class="edit-swith"><img src="images/icon/switch.png" alt=""></li>
+        </ul>
+    </div>
+
+    <div class="pano-bottom">
+        <div class="left-arrow"><img src="images/icon/left.png" alt=""></div>
+
+        <div class="show-pano">
+            <img class="show-pano-img" src="images/25_5.jpg" data-src="images/25_5.jpg" alt="">
+            <img class="show-pano-delete" src="images/icon/delete.png" alt="">
+        </div>
+        <div class="show-pano">
+            <img class="show-pano-img" src="images/10.jpg" data-src="images/10.jpg" alt="">
+            <img class="show-pano-delete" src="images/icon/delete.png" alt="">
+        </div>
+        <div class="show-pano">
+            <img class="show-pano-img" src="images/new_4.jpg" data-src="images/new_4.jpg" alt="">
+            <img class="show-pano-delete" src="images/icon/delete.png" alt="">
+        </div>
+
+        <div class="add-map"><img src="images/icon/add.png" alt=""></div>
+        <div class="right-arrow"><img src="images/icon/right.png" alt=""></div>
+    </div>
+
+    <div class="fade-in">
+        <div>
+            <span><span class="xing">*</span>场景名称</span>
+            <input type="text" name="sceneName">
+        </div>
+        <div>
+            <span>施工区域</span>
+            <input type="text" name="workArea">
+        </div>
+        <div class="div-bz">
+            <span class="span-bz">备注</span>
+            <textarea name="tips" id="" cols="26" rows="8"></textarea>
+        </div>
+        <div>
+            <span>场景图片</span>
+            <label for="file" class="label-file">点击上传</label>
+            <input type='file' class="fade-bt1" value="点击上传" id="file">
+            <input type="hidden" name="sceneImg" value="">
+        </div>
+        <div>
+            <button class="fade-bt2">立即创建</button>
+            <button class="fade-bt3">取消</button>
+        </div>
+    </div>
+
+    <div class="file-sign">
+        <span class="file-sign-off">╳</span>
+        <h3>选择文件</h3>
+        <!--<input class='show' id='sign-progress' type="range" name="progress" min="1" max="100" value="80"/>-->
+        <!--<progress id='sign-progress' value="80" max="100"></progress>-->
+        <label for="file-sign-id" class="file-sign-label">点击上传</label>
+        <input type="file" id="file-sign-id">
+        <button class="qd">确定</button>
+        <button class="file-sign-cancel">取消</button>
+    </div>
+
+    <div class="image-sign">
+        <span class="image-sign-off">╳</span>
+        <h3>选择图片</h3>
+        <label for="image-sign-id" class="image-sign-label">点击上传</label>
+        <input type="file" class='display-none' id="image-sign-id">
+        <button class="qd">确定</button>
+        <button class="image-sign-cancel">取消</button>
+    </div>
+
+    <div class="text-sign">
+        <span class="text-sign-off">╳</span>
+        <h3>文字标注</h3>
+        <p>标注名称</p>
+        <input type="text">
+        <button class="qd">确定</button>
+        <button class="text-sign-cancel">取消</button>
+    </div>
+</div>
+<script>
+//    var geometry = new THREE.PlaneGeometry(10,10);//矩形平面
+//    var texture = THREE.ImageUtils.loadTexture("../images/icon/img.jpg");//加载纹理贴图
+//    var material=new THREE.MeshLambertMaterial({//贴图通过材质添加给几何体
+//        map:texture,//给纹理属性map赋值
+//        side:THREE.DoubleSide,//两面可见
+//    });//材质对象
+//    var mesh = new THREE.Mesh(geometry,material);//纹理贴图网格模型对象
+//    scene.add(mesh);//网格模型添加到场景中
+//    mesh.position.set(-10,10,5)
+
+</script>
+</body>
+</html>
